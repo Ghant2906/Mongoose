@@ -5,7 +5,6 @@ $(document).ready(() => {
             url: '/api/logout',
             type: 'delete',
             success: (data) => {
-                alert(data)
                 window.location.href = '/login'
             },
             error: (error) => {

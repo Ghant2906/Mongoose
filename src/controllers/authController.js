@@ -2,7 +2,7 @@ import authService from "../services/authService"
 
 
 let getLoginPage = (req, res) => {
-    res.render('loginPage.ejs')
+    res.render('loginPage.ejs', {layout: false})
 }
 
 let handleLogin = async (req, res) => {

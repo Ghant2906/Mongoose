@@ -1,14 +1,15 @@
 import express from "express"
 import authController from "../controllers/authController"
+import homeController from "../controllers/homeController"
+
 import authMiddleware from "../middleware/authMiddleware"
+
 
 let router = express.Router()
 
 let initWebRoutes = (app) => {
 
-    router.get('/', authMiddleware.checkLogin, (req, res) => {
-        res.render('homePage.ejs')
-    })
+    router.get('/', authMiddleware.checkLogin,homeController.getHomePage)
 
     router.get('/login', (req, res, next) => {
         if (req.cookies.token) {
@@ -20,6 +21,7 @@ let initWebRoutes = (app) => {
 
     router.post('/api/login', authController.handleLogin)
     router.delete('/api/logout', authController.handleLogout)
+
 
     return app.use("/", router)
 }

@@ -1,0 +1,134 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Quản lý sách</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <form action="">
+          <div
+            class="d-flex flex-wrap justify-content-start algin-items-center gap-2 gap-md-3 mt-3 ml-3"
+          >
+            <div class="col-12 col-md-auto">
+              <input
+                class="form-control"
+                type="text"
+                name="q"
+                autocomplete="off"
+                placeholder="Nhập từ khóa tìm kiếm..."
+                value="<%= typeof get.q !== 'undefined' ? get.q : '' %>"
+              />
+            </div>
+
+          
+
+            <div class="col-12 col-md-auto">
+              <select name="status" class="form-select">
+                <option value="" <% if (!get.status || get.status === "") { %>selected<% } %>>Trạng thái</option>
+                <option value="0" <% if (get.status === "0") { %>selected<% } %>>Khóa</option>
+                <option value="1" <% if (get.status === "1") { %>selected<% } %>>Hoạt động</option>
+            </select>
+            </div>
+            <div class="col-md-auto">
+              <button type="submit" class="btn btn-primary gap-2">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Tìm kiếm</span>
+              </button>
+            </div>
+            <div class="col-md-auto">
+              <a
+                href="http://localhost/shop_clothes/admin/customer"
+                class="btn btn-info gap-2"
+              >
+                <i class="fa-solid fa-rotate"></i>
+                <span>Làm mới</span>
+              </a>
+            </div>
+          </div>
+        </form>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table
+              id="example2"
+              class="table table-bordered table-hover"
+              style="text-align: center; vertical-align: center"
+            >
+              <thead>
+                <tr>
+                  <th>Tên</th>
+                  <th>Tác giả</th>
+                  <th>Thể loại</th>
+                  <th>Giá</th>
+                  <th>Mô tả</th>
+                  <th>Số lượng</th>
+                  <th>Trạng thái</th>
+
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% books.forEach((book)=> { %>
+                <tr>
+                  <td><%= book.name %></td>
+                  <td><%= book.idAuthor.name %></td>
+                  <td><%= book.idType.name %></td>
+                  <td><%= book.price %></td>
+                  <td><%= book.description %></td>
+                  <td><%= book.quantity %></td>
+                  <td>
+                    <% if (book.status ) { %>
+                      <span class="badge bg-success p-2">Hoạt động</span>
+                    <%} else { %>
+                      <span class="badge bg-danger p-2">Khóa</span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <div
+                      class="d-flex align-items-center justify-content-center"
+                    >
+                      <button
+                        data-status="verified"
+                        id="customer-status-veqhwftl"
+                        type="button"
+                        class="btn btn-block btn-danger mt-0 mr-2 p-1"
+                        style="width: fit-content"
+                      >
+                        <i class="fa-solid fa-lock"></i>
+                      </button>
+
+                      <button
+                        type=" button"
+                        class="btn btn-block btn-success mt-0 p-1"
+                        style="width: fit-content"
+                      >
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->

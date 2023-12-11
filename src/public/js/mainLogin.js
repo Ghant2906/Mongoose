@@ -16,6 +16,7 @@ $(document).ready(() => {
             },
             success: (result) => {
                 console.log(result)
+                location.reload();
             },
             error: (err) => {
                 console.log("Lỗi đăng nhập: " + err.responseText);

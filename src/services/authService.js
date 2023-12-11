@@ -4,14 +4,15 @@ const jwt = require('jsonwebtoken');
 let handleLogin = (userName, password) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await User.findOne({ 'userName': userName, 'password': password});
+            const user = await User.findOne({ 'userName': userName, 'password': password},
+            { 'password': 0 });
             if(!user){
                 resolve({
                     errCode: 1,
                     errMsg: "not found"
                 })
             }else{
-                delete user.password
+                // delete user.password
                 resolve({
                     errCode: 0,
                     user: user,
