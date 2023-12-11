@@ -17,6 +17,7 @@ const bookSchema = new mongoose.Schema({
     price: String,
     status: { type: Boolean, default: true }
 });
+
 const Book = mongoose.model('book', bookSchema);
 
 module.exports = Book;

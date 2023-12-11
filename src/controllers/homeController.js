@@ -6,13 +6,14 @@ let getHomePage = async (req, res) => {
   if (user === false) {
   }
   // Lấy giá trị của tham số 'get' từ URL
-  const getParameter = req.query;
   const status = req.query.status || null;
   const q = req.query.q || null;
   // console.log(status,q)
 
   let books = await bookService.getAllBooks(status, q);
 
+  if (books === false) {
+  }
   const getParam = req.query;
 
   // Render the EJS template with the 'get' parameter

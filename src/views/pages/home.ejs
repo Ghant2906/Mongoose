@@ -29,14 +29,12 @@
               />
             </div>
 
-          
-
             <div class="col-12 col-md-auto">
               <select name="status" class="form-select">
                 <option value="" <% if (!get.status || get.status === "") { %>selected<% } %>>Trạng thái</option>
                 <option value="0" <% if (get.status === "0") { %>selected<% } %>>Khóa</option>
                 <option value="1" <% if (get.status === "1") { %>selected<% } %>>Hoạt động</option>
-            </select>
+              </select>
             </div>
             <div class="col-md-auto">
               <button type="submit" class="btn btn-primary gap-2">
@@ -71,7 +69,6 @@
                   <th>Mô tả</th>
                   <th>Số lượng</th>
                   <th>Trạng thái</th>
-
                   <th>Hành động</th>
                 </tr>
               </thead>
@@ -86,7 +83,7 @@
                   <td><%= book.quantity %></td>
                   <td>
                     <% if (book.status ) { %>
-                      <span class="badge bg-success p-2">Hoạt động</span>
+                      <span class="badge bg-success p-2" >Hoạt động</span>
                     <%} else { %>
                       <span class="badge bg-danger p-2">Khóa</span>
                     <% } %>
@@ -95,20 +92,35 @@
                     <div
                       class="d-flex align-items-center justify-content-center"
                     >
+                    <% if (book.status ) { %>
                       <button
                         data-status="verified"
                         id="customer-status-veqhwftl"
                         type="button"
-                        class="btn btn-block btn-danger mt-0 mr-2 p-1"
+                        class="btn btn-block btn-danger mt-0 mr-2 p-1 block-book-btn"
                         style="width: fit-content"
+                        data-id="<%= book.id %>"
                       >
                         <i class="fa-solid fa-lock"></i>
                       </button>
+                      <%} else { %>
+                        <button
+                        data-status="verified"
+                        id="customer-status-veqhwftl"
+                        type="button"
+                        class="btn btn-block btn-success mt-0 mr-2 p-1 active-book-btn"
+                        style="width: fit-content"
+                        data-id="<%= book.id %>"
+                      >
+                        <i class="fa-solid fa-lock"></i>
+                      </button>
+                      <% } %>
 
                       <button
                         type=" button"
-                        class="btn btn-block btn-success mt-0 p-1"
+                        class="btn btn-block btn-success mt-0 p-1 active-book-btn"
                         style="width: fit-content"
+                        data-id="<%= book.id %>"
                       >
                         <i class="fa-solid fa-eye"></i>
                       </button>
@@ -132,3 +144,105 @@
   <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+<!-- block-book-btn -->
+<script>
+$(document).ready(() => {
+    "use strict";
+    $('.block-book-btn').click(function() {
+      
+      const bookId = $(this).data('id');
+      // console.log(bookId)
+      if(bookId){
+
+        Swal.fire({
+          title: "Bạn có muốn khóa sách này không?",
+          showCancelButton: true,
+          confirmButtonText: "Có",
+          icon: "question",
+          cancelButtonText: `Không`
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '/api/blockBook',
+              type: 'PUT',
+              data:{
+                id:bookId
+              },
+              success: (data) => {
+                Swal.fire({
+                title: "Thành công",
+                text: "Khóa thành công",
+                icon: "success",
+              }).then((result) => {
+                location.reload();
+              });
+              },
+              error: (error) => {
+                Swal.fire({
+                  title: "Lỗi?",
+                  text: "Có lỗi thử lại sau",
+                  icon: "error"
+                });
+              }
+          })
+          }
+        });
+
+        
+      }
+        
+    })
+})
+</script>
+
+<script>
+  $(document).ready(() => {
+    "use strict";
+    $('.active-book-btn').click(function() {
+      
+      const bookId = $(this).data('id');
+      // console.log(bookId)
+      if(bookId){
+
+        Swal.fire({
+          title: "Bạn có muốn mở sách này không?",
+          showCancelButton: true,
+          confirmButtonText: "Có",
+          icon: "question",
+          cancelButtonText: `Không`
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '/api/activeBook',
+              type: 'PUT',
+              data:{
+                id:bookId
+              },
+              success: (data) => {
+                Swal.fire({
+                title: "Thành công",
+                text: "Mở thành công",
+                icon: "success",
+              }).then((result) => {
+                location.reload();
+              });
+              },
+              error: (error) => {
+                Swal.fire({
+                  title: "Lỗi?",
+                  text: "Có lỗi thử lại sau",
+                  icon: "error"
+                });
+              }
+          })
+          }
+        });
+
+        
+      }
+        
+    })
+})
+</script>
