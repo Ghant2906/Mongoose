@@ -10,7 +10,7 @@ const renderItemTbHome = (books) => {
                         data-status="verified"
                         id="customer-status-veqhwftl"
                         type="button"
-                        class="btn btn-block btn-danger mt-0 mr-2 p-1 block-book-btn"
+                        class="btn btn-block btn-success mt-0 mr-2 p-1 block-book-btn"
                         style="width: fit-content"
                         onclick="blockBook('${book.id}')"
                     >
@@ -21,7 +21,7 @@ const renderItemTbHome = (books) => {
                         data-status="verified"
                         id="customer-status-veqhwftl"
                         type="button"
-                        class="btn btn-block btn-success mt-0 mr-2 p-1 active-book-btn"
+                        class="btn btn-block btn-danger mt-0 mr-2 p-1 active-book-btn"
                         style="width: fit-content"
                         onclick="activeBook('${book.id}')"
                     >
@@ -41,19 +41,19 @@ const renderItemTbHome = (books) => {
                 <td>
                 <div class="d-flex align-items-center justify-content-center">
                     ${actionHtml}
-                    <button
-                        type=" button"
+                    <a
+                        type="button"
                         class="btn btn-block btn-success mt-0 p-1"
                         style="width: fit-content"
-                        
+                        href="/editBook?id=${book.id}"
                       >
                         <i class="fa-solid fa-eye"></i>
-                      </button>
+                      </a>
                 </div>
                 </td>
             </tr>`) 
   });
-  return html.join();
+  return html.join('');
 }
 
 export default renderItemTbHome

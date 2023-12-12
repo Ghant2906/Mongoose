@@ -1,0 +1,175 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Sửa sách</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <form action="/editBook" method="POST">
+        <div class="d-flex flex-column gap-4">
+          <input type="hidden" name="_id" value="<%= book._id %>">
+          <div class="col-12 d-flex align-items-end">
+            <input class="btn btn-success ms-auto" type="submit" value="Lưu" />
+          </div>
+          <div class="col-12 row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="category" class="form-label fw-bold"
+                  >Thể loại <span class="text-danger">*</span></label
+                >
+                <select class="form-select" id="category" name="type" required>
+                  <option value="" selected disabled>Thể loại</option>
+  
+                  <% types.forEach((type)=>{ %>
+                    <option value=<%= type.id %> <%= type.id == book.idType ? 'selected' : '' %>>
+                        <%= type.name %>
+                    </option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-6">
+              <div class="form-group">
+                <label for="category" class="form-label fw-bold"
+                  >Tác giả <span class="text-danger">*</span></label
+                >
+                <select class="form-select" id="category" name="author" required>
+                  <option value="" disabled>Tác giả</option>
+  
+                  <% authors.forEach((author)=>{ %>
+                    <option value=<%= author.id %> <%= author.id == book.idAuthor ? 'selected' : '' %>>
+                        <%= author.name %>
+                    </option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 row">
+  
+            <div class="col-6">
+              <div class="form-group">
+                <label for="link" class="form-label fw-bold">Tên sách</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="link"
+                  name="name"
+                  placeholder="Nhập tên"
+                  value= "<%= book.name %>"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="link" class="form-label fw-bold">Ngày xuất bản</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="id_date"
+                  name="date"
+                  value="<%= book.publicationDate %>"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="category" class="form-label fw-bold"
+                  >Giá <span class="text-danger">*</span></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="link"
+                  name="price"
+                  placeholder="Nhập giá"
+                  value="<%= book.price %>"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="link" class="form-label fw-bold"
+                  >Số lượng<span class="text-danger">*</span></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="link"
+                  name="quantity"
+                  placeholder="Nhập số lượng"
+                  value="<%= book.quantity %>"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="link" class="form-label fw-bold">Link hình ảnh</label>
+              <input
+                type="text"
+                class="form-control"
+                id="link"
+                name="image"
+                placeholder="Nhập link trỏ đến"
+                value="<%= book.image %>"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+  
+          <div class="col-12">
+            <div class="form-group">
+              <label for="link" class="form-label fw-bold">Mô tả</label>
+              <textarea
+                type="text"
+                class="form-control"
+                name="description"
+                placeholder="Nhập mô tả"
+                autocomplete="off"
+                
+                required
+              ><%= book.description %></textarea>
+            </div>
+          </div>
+  
+          <div class="col-12">
+            <div class="form-group">
+              <label for="status" class="form-label fw-bold"
+                >Trạng thái <span class="text-danger">*</span></label
+              >
+              <select class="form-select" id="status" name="status" required>
+                <option value="1" <%=  book.status ? 'selected' : '' %>>Hiển thị</option>
+                <option value="0" <%=  book.status ? '' : 'selected' %>>Ẩn</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+  <!-- block-book-btn -->
+

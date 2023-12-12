@@ -11,107 +11,156 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-    <div class="d-flex flex-column gap-4">
-      <input
-        type="hidden"
-        name="_token"
-        value="qJr1mSJgITQLEPg4xotHo5EjoKYJVMGm31r97vKz"
-        autocomplete="off"
-      />
-      <div class="col-12 d-flex align-items-end">
-        <input class="btn btn-success ms-auto" type="submit" value="Lưu" />
-      </div>
-      <div class="col-12 row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="category" class="form-label fw-bold"
-              >Thể loại <span class="text-danger">*</span></label
-            >
-            <select class="form-select" id="category" name="category">
-              <option value="" selected="">Trang chủ</option>
-              <option value="1">Danh mục / Điện Thoại</option>
-              <option value="2">Danh mục / Máy tính xách tay</option>
-              <option value="3">Danh mục / Máy tính bảng</option>
-            </select>
-          </div>
+    <form action="/addBook" method="POST">
+      <div class="d-flex flex-column gap-4">
+        
+        <div class="col-12 d-flex align-items-end">
+          <input class="btn btn-success ms-auto" type="submit" value="Lưu" />
         </div>
+        <div class="col-12 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="category" class="form-label fw-bold"
+                >Thể loại <span class="text-danger">*</span></label
+              >
+              <select class="form-select" id="category" name="type" required>
+                <option value="" selected disabled>Thể loại</option>
 
-        <div class="col-6">
-          <div class="form-group">
-            <label for="category" class="form-label fw-bold"
-              >Tác giả <span class="text-danger">*</span></label
-            >
-            <select class="form-select" id="category" name="category">
-              <option value="" selected="">Trang chủ</option>
-              <option value="1">Danh mục / Điện Thoại</option>
-              <option value="2">Danh mục / Máy tính xách tay</option>
-              <option value="3">Danh mục / Máy tính bảng</option>
-            </select>
+                <% types.forEach((type)=>{ %>
+                  <option value=<%= type.id %>><%= type.name %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="category" class="form-label fw-bold"
+                >Tác giả <span class="text-danger">*</span></label
+              >
+              <select class="form-select" id="category" name="author" required>
+                <option value="" disabled selected>Tác giả</option>
+
+                <% authors.forEach((author)=>{ %>
+                  <option value=<%= author.id %>><%= author.name %></option>
+                <% }) %>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-12 row">
-        <div class="col-6">
+        <div class="col-12 row">
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="link" class="form-label fw-bold">Tên sách</label>
+              <input
+                type="text"
+                class="form-control"
+                id="link"
+                name="name"
+                placeholder="Nhập tên"
+                value=""
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="link" class="form-label fw-bold">Ngày xuất bản</label>
+              <input
+                type="date"
+                class="form-control"
+                id="link"
+                name="date"
+                value=""
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="category" class="form-label fw-bold"
+                >Giá <span class="text-danger">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="link"
+                name="price"
+                placeholder="Nhập giá"
+                value=""
+                autocomplete="off"
+                min="1"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="link" class="form-label fw-bold"
+                >Số lượng<span class="text-danger">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="link"
+                name="quantity"
+                placeholder="Nhập số lượng"
+                value=""
+                autocomplete="off"
+                min="1"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
           <div class="form-group">
-            <label for="category" class="form-label fw-bold"
-              >Giá <span class="text-danger">*</span></label
-            >
+            <label for="link" class="form-label fw-bold">Link hình ảnh</label>
             <input
-              type="number"
+              type="text"
               class="form-control"
               id="link"
-              name="link"
-              placeholder="Nhập giá"
+              name="image"
+              placeholder="Nhập link trỏ đến"
               value=""
               autocomplete="off"
-              min="1"
+              required
             />
           </div>
         </div>
-        <div class="col-6">
+
+        <div class="col-12">
           <div class="form-group">
-            <label for="link" class="form-label fw-bold">Số lượng<span class="text-danger">*</span></label>
-            <input
-              type="number"
+            <label for="link" class="form-label fw-bold">Mô tả</label>
+            <textarea
+              type="text"
               class="form-control"
-              id="link"
-              name="link"
-              placeholder="Nhập số lượng"
-              value=""
+              name="description"
+              placeholder="Nhập mô tả"
               autocomplete="off"
-              min="1"
-            />
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group">
+            <label for="status" class="form-label fw-bold"
+              >Trạng thái <span class="text-danger">*</span></label
+            >
+            <select class="form-select" id="status" name="status" required>
+              <option value="1">Hiển thị</option>
+              <option value="0">Ẩn</option>
+            </select>
           </div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="form-group">
-          <label for="link" class="form-label fw-bold">Link hình ảnh</label>
-          <input
-            type="text"
-            class="form-control"
-            id="link"
-            name="link"
-            placeholder="Nhập link trỏ đến"
-            value=""
-            autocomplete="off"
-          />
-        </div>
-      </div>
-
-
-      <div class="col-12">
-        <div class="form-group">
-          <label for="status" class="form-label fw-bold"
-            >Trạng thái <span class="text-danger">*</span></label
-          >
-          <select class="form-select" id="status" name="status" required="">
-            <option value="1">Hiển thị</option>
-            <option value="0">Ẩn</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    </form>
     <!-- /.row -->
   </div>
   <!-- /.container-fluid -->

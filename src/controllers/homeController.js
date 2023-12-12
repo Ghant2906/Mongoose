@@ -1,8 +1,18 @@
 import userService from "../services/userService";
 import bookService from "../services/bookService";
+import typeService from "../services/typeService";
+import authorService from "../services/authorService";
+
+
 import renderItemTbHome from "../public/js/renderTbHome";
+import { response } from "express";
+
 
 let getHomePage = async (req, res) => {
+
+  const alert = req.query.alert || null;
+  
+
   let user = userService.getUserCurrent(req.cookies.token);
   if (user === false) {
   }
@@ -23,20 +33,15 @@ let getHomePage = async (req, res) => {
     user: user,
     books: books,
     get: getParam,
-    dataTb : renderItemTbHome(books)
+    dataTb : renderItemTbHome(books),
+    alert:alert
   });
 };
 
-let addBookPage = async (req, res) => {
-  let user = userService.getUserCurrent(req.cookies.token);
 
-  return res.render("pages/addBook.ejs", {
-    title: "Thêm sách",
-    user: user
-  });
-};
+
+
 
 module.exports = {
   getHomePage: getHomePage,
-  addBookPage:addBookPage,
 };

@@ -81,64 +81,10 @@
                   <th>Hành động</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="content-tb">
                 
                 <%- dataTb %>
-                <!-- <% books.forEach((book)=> { %>
-                <tr>
-                  <td><%= book.name %></td>
-                  <td><%= book.idAuthor.name %></td>
-                  <td><%= book.idType.name %></td>
-                  <td><%= book.price %></td>
-                  <td><%= book.description %></td>
-                  <td><%= book.quantity %></td>
-                  <td>
-                    <% if (book.status ) { %>
-                      <span class="badge bg-success p-2" >Hoạt động</span>
-                    <%} else { %>
-                      <span class="badge bg-danger p-2">Khóa</span>
-                    <% } %>
-                  </td>
-                  <td>
-                    <div
-                      class="d-flex align-items-center justify-content-center"
-                    >
-                    <% if (book.status ) { %>
-                      <button
-                        data-status="verified"
-                        id="customer-status-veqhwftl"
-                        type="button"
-                        class="btn btn-block btn-danger mt-0 mr-2 p-1 block-book-btn"
-                        style="width: fit-content"
-                        data-id="<%= book.id %>"
-                      >
-                        <i class="fa-solid fa-lock"></i>
-                      </button>
-                      <%} else { %>
-                        <button
-                        data-status="verified"
-                        id="customer-status-veqhwftl"
-                        type="button"
-                        class="btn btn-block btn-success mt-0 mr-2 p-1 active-book-btn"
-                        style="width: fit-content"
-                        data-id="<%= book.id %>"
-                      >
-                        <i class="fa-solid fa-lock"></i>
-                      </button>
-                      <% } %>
-
-                      <button
-                        type=" button"
-                        class="btn btn-block btn-success mt-0 p-1 active-book-btn"
-                        style="width: fit-content"
-                        data-id="<%= book.id %>"
-                      >
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <% }); %> -->
+                
               </tbody>
             </table>
           </div>
@@ -156,92 +102,51 @@
 </section>
 <!-- /.content -->
 <!-- block-book-btn -->
+<script src="./js/mainHome.js">
+  
+</script>
 <script>
-  function blockBook(bookId){
-    if(bookId){
+  document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const alertParam = urlParams.get('alert');
 
-      Swal.fire({
-        title: "Bạn có muốn khóa sách này không?",
-        showCancelButton: true,
-        confirmButtonText: "Có",
-        icon: "question",
-        cancelButtonText: `Không`
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          $.ajax({
-            url: '/api/blockBook',
-            type: 'PUT',
-            data:{
-              id:bookId
-            },
-            success: (data) => {
-              Swal.fire({
-              title: "Thành công",
-              text: "Khóa thành công",
-              icon: "success",
-            }).then((result) => {
-              location.reload();
-            });
-            },
-            error: (error) => {
-              Swal.fire({
-                title: "Lỗi?",
-                text: "Có lỗi thử lại sau",
-                icon: "error"
-              });
-            }
-        })
-        }
-        });
+    if (alertParam) {
+      // Tạo một URL mới mà không chứa tham số alert
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete('alert');
 
-
-  }
-}
-
-function activeBook(bookId) {
-  if(bookId){
-
-Swal.fire({
-  title: "Bạn có muốn mở sách này không?",
-  showCancelButton: true,
-  confirmButtonText: "Có",
-  icon: "question",
-  cancelButtonText: `Không`
-}).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
-  if (result.isConfirmed) {
-      $.ajax({
-        url: '/api/activeBook',
-        type: 'PUT',
-        data:{
-          id:bookId
-        },
-        success: (data) => {
-          Swal.fire({
-          title: "Thành công",
-          text: "Mở thành công",
-          icon: "success",
-        }).then((result) => {
-          location.reload();
-        });
-        },
-        error: (error) => {
-          Swal.fire({
-            title: "Lỗi?",
-            text: "Có lỗi thử lại sau",
-            icon: "error"
-          });
-        }
-    })
+      // Thay đổi URL của trình duyệt mà không tải lại trang
+      window.history.replaceState({}, document.title, newUrl.href);
     }
   });
-
-
-  }
-}
-
-   
 </script>
+<% if (alert !== null) { %>
+  <% if (alert === 'addSuccess') { %>
+    <script>
+      Swal.fire({
+        title: "Thành công",
+        text: "Thêm thành công",
+        icon: "success"
+      });
+    </script>
+  <% } else if (alert === 'addFailure') { %>
+    <script>
+      Swal.fire({
+        title: "Thất bại",
+        text: "Có lỗi thử lại sau",
+        icon: "error"
+      });
+    </script>
+  <% } else if (alert === 'editSuccess') { %>
+    <script>
+      Swal.fire({
+        title: "Sửa công",
+        text: "Sửa thành công",
+        icon: "success"
+      });
+    </script>
+  <% } %>
+<% } %>
+
 
 
