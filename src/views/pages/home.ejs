@@ -82,7 +82,9 @@
                 </tr>
               </thead>
               <tbody>
-                <% books.forEach((book)=> { %>
+                
+                <%- dataTb %>
+                <!-- <% books.forEach((book)=> { %>
                 <tr>
                   <td><%= book.name %></td>
                   <td><%= book.idAuthor.name %></td>
@@ -136,7 +138,7 @@
                     </div>
                   </td>
                 </tr>
-                <% }); %>
+                <% }); %> -->
               </tbody>
             </table>
           </div>
@@ -155,103 +157,91 @@
 <!-- /.content -->
 <!-- block-book-btn -->
 <script>
-$(document).ready(() => {
-    "use strict";
-    $('.block-book-btn').click(function() {
-      
-      const bookId = $(this).data('id');
-      // console.log(bookId)
-      if(bookId){
+  function blockBook(bookId){
+    if(bookId){
 
-        Swal.fire({
-          title: "Bạn có muốn khóa sách này không?",
-          showCancelButton: true,
-          confirmButtonText: "Có",
-          icon: "question",
-          cancelButtonText: `Không`
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            $.ajax({
-              url: '/api/blockBook',
-              type: 'PUT',
-              data:{
-                id:bookId
-              },
-              success: (data) => {
-                Swal.fire({
-                title: "Thành công",
-                text: "Khóa thành công",
-                icon: "success",
-              }).then((result) => {
-                location.reload();
+      Swal.fire({
+        title: "Bạn có muốn khóa sách này không?",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        icon: "question",
+        cancelButtonText: `Không`
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          $.ajax({
+            url: '/api/blockBook',
+            type: 'PUT',
+            data:{
+              id:bookId
+            },
+            success: (data) => {
+              Swal.fire({
+              title: "Thành công",
+              text: "Khóa thành công",
+              icon: "success",
+            }).then((result) => {
+              location.reload();
+            });
+            },
+            error: (error) => {
+              Swal.fire({
+                title: "Lỗi?",
+                text: "Có lỗi thử lại sau",
+                icon: "error"
               });
-              },
-              error: (error) => {
-                Swal.fire({
-                  title: "Lỗi?",
-                  text: "Có lỗi thử lại sau",
-                  icon: "error"
-                });
-              }
-          })
-          }
+            }
+        })
+        }
         });
 
-        
-      }
-        
-    })
-})
-</script>
 
-<script>
-  $(document).ready(() => {
-    "use strict";
-    $('.active-book-btn').click(function() {
-      
-      const bookId = $(this).data('id');
-      // console.log(bookId)
-      if(bookId){
+  }
+}
 
-        Swal.fire({
-          title: "Bạn có muốn mở sách này không?",
-          showCancelButton: true,
-          confirmButtonText: "Có",
-          icon: "question",
-          cancelButtonText: `Không`
+function activeBook(bookId) {
+  if(bookId){
+
+Swal.fire({
+  title: "Bạn có muốn mở sách này không?",
+  showCancelButton: true,
+  confirmButtonText: "Có",
+  icon: "question",
+  cancelButtonText: `Không`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+      $.ajax({
+        url: '/api/activeBook',
+        type: 'PUT',
+        data:{
+          id:bookId
+        },
+        success: (data) => {
+          Swal.fire({
+          title: "Thành công",
+          text: "Mở thành công",
+          icon: "success",
         }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            $.ajax({
-              url: '/api/activeBook',
-              type: 'PUT',
-              data:{
-                id:bookId
-              },
-              success: (data) => {
-                Swal.fire({
-                title: "Thành công",
-                text: "Mở thành công",
-                icon: "success",
-              }).then((result) => {
-                location.reload();
-              });
-              },
-              error: (error) => {
-                Swal.fire({
-                  title: "Lỗi?",
-                  text: "Có lỗi thử lại sau",
-                  icon: "error"
-                });
-              }
-          })
-          }
+          location.reload();
         });
-
-        
-      }
-        
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Lỗi?",
+            text: "Có lỗi thử lại sau",
+            icon: "error"
+          });
+        }
     })
-})
+    }
+  });
+
+
+  }
+}
+
+   
 </script>
+
+

@@ -25,7 +25,7 @@
         <div class="col-6">
           <div class="form-group">
             <label for="category" class="form-label fw-bold"
-              >Loại sách <span class="text-danger">*</span></label
+              >Thể loại <span class="text-danger">*</span></label
             >
             <select class="form-select" id="category" name="category">
               <option value="" selected="">Trang chủ</option>
@@ -54,25 +54,29 @@
         <div class="col-6">
           <div class="form-group">
             <label for="category" class="form-label fw-bold"
-              >Loại sách <span class="text-danger">*</span></label
+              >Giá <span class="text-danger">*</span></label
             >
-            <select class="form-select" id="category" name="category">
-              <option value="" selected="">Trang chủ</option>
-              <option value="1">Danh mục / Điện Thoại</option>
-              <option value="2">Danh mục / Máy tính xách tay</option>
-              <option value="3">Danh mục / Máy tính bảng</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="link" class="form-label fw-bold">Số lượng</label>
             <input
               type="number"
               class="form-control"
               id="link"
               name="link"
-              placeholder="Nhập link trỏ đến"
+              placeholder="Nhập giá"
+              value=""
+              autocomplete="off"
+              min="1"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="link" class="form-label fw-bold">Số lượng<span class="text-danger">*</span></label>
+            <input
+              type="number"
+              class="form-control"
+              id="link"
+              name="link"
+              placeholder="Nhập số lượng"
               value=""
               autocomplete="off"
               min="1"

@@ -1,5 +1,6 @@
 import userService from "../services/userService";
 import bookService from "../services/bookService";
+import renderItemTbHome from "../public/js/renderTbHome";
 
 let getHomePage = async (req, res) => {
   let user = userService.getUserCurrent(req.cookies.token);
@@ -22,6 +23,7 @@ let getHomePage = async (req, res) => {
     user: user,
     books: books,
     get: getParam,
+    dataTb : renderItemTbHome(books)
   });
 };
 
