@@ -18,7 +18,35 @@ let getAllType = async () => {
     }
     
 }
+let addType = async (type) => {
+    return new Promise( async ( resolve, reject) => {
+
+
+
+        try {
+            let check  = await Type.findOne({
+                name: type
+            });
+            if(check !== null){
+                return resolve({
+                    errCode: 1,
+                    errMsg: 'Đã tồn tại'
+                }); 
+            }
+            let newType = await Type.create({
+                name : type
+            })
+            resolve({
+                errCode: 0,
+                data: newType
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 module.exports = {
-    getAllType: getAllType
+    getAllType: getAllType,
+    addType:addType
 }

@@ -1,5 +1,3 @@
-
-
 function blockBook(bookId) {
   if (bookId) {
     Swal.fire({
@@ -77,3 +75,63 @@ function activeBook(bookId) {
     });
   }
 }
+
+const addType = (type)=> {
+  
+}
+
+
+document.querySelector("#add-type-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  Swal.fire({
+    title: "Thêm thể loại",
+    input: "text",
+    inputAttributes: {
+      autocapitalize: "off",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Thêm",
+    showLoaderOnConfirm: true,
+    preConfirm: async (type) => {
+      if(!type){
+        Swal.showValidationMessage('Nhập dô mày?');
+      }else{
+
+        return await $.ajax({
+          type: "POST",
+          url: "/api/addType",
+          data: {
+            type: type
+          },
+          success: (result) => {
+            return result
+          },
+          error: (err) => {
+      
+            return err;
+          },
+        });
+      }
+     
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if(result.value.allType){
+        Swal.fire({
+          title: "Thành công",
+          text: "Thêm thành công",
+          icon: "success",
+        });
+      }else{
+        Swal.fire({
+          title: "Sai rồi",
+          text: result.value.errMsg,
+          icon: "error",
+        });
+      }
+    }
+  });
+});
+
+
