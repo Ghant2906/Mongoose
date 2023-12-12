@@ -12,6 +12,7 @@ let router = express.Router()
 let initWebRoutes = (app) => {
 
     router.get('/', authMiddleware.checkLogin,homeController.getHomePage)
+    router.get('/addBook', authMiddleware.checkLogin,homeController.addBookPage)
 
     router.get('/login', (req, res, next) => {
         if (req.cookies.token) {

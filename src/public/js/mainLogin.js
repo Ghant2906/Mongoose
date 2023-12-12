@@ -15,11 +15,24 @@ $(document).ready(() => {
                 password: password
             },
             success: (result) => {
-                console.log(result)
+                if(result.errCode === 1){
+                    Swal.fire({
+                        title: "Đăng nhập thất bại!",
+                        text: "Sai thông tin đăng nhập",
+                        icon: "error"
+                      });
+                }else{
                 location.reload();
+
+                }
             },
             error: (err) => {
-                console.log("Lỗi đăng nhập: " + err.responseText);
+                Swal.fire({
+                    title: "Đăng nhập thất bại!",
+                    text: "Có lỗi thử lại sau",
+                    icon: "error"
+                  });
+                
             }
         });
 
