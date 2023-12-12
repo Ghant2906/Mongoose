@@ -30,8 +30,8 @@ const renderItemTbHome = (books) => {
     }
     html.push(`<tr>
                 <td>${book.name}</td>
-                <td>${book.idAuthor.name}</td>
-                <td>${book.idType.name}</td>
+                <td>${book.idAuthor?.name || ''}</td>
+                <td>${book.idType?.name || ''}</td>
                 <td>${book.price}</td>
                 <td>${book.description}</td>
                 <td>${book.quantity}</td>

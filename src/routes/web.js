@@ -21,6 +21,9 @@ let initWebRoutes = (app) => {
     router.get('/addBook', authMiddleware.checkLogin,bookController.getAddBookPage)
     router.post('/addBook', bookController.handleAddBook)
 
+    router.get('/tac-gia', authorController.getHomePage)
+
+
 
 
 
@@ -43,6 +46,8 @@ let initWebRoutes = (app) => {
     router.get('/api/allAuthor', authorController.handleGetAllAuthor)
     router.get('/api/allType', typeController.handleGetAllType)
     router.post('/api/addType', typeController.handleAddType)
+    router.delete('/api/deleteAuthor', authorController.deleteType)
+
 
     
     return app.use("/", router)

@@ -37,13 +37,27 @@ let editAuthor = (dataAuthor) => {
     })
 }
 
-let deleteAuthor = (idAuthor) => {
+let deleteAuthor = async (idAuthor) => {
+    try{
+        
 
+        const check = await Author.findByIdAndDelete(idAuthor).exec()
+        if(check){
+            return check
+        }
+        return false
+    }catch (error) {
+        return false;
+    }
 }
 
-let getAllAuthor = async () => {
+let getAllAuthor = async (q=null) => {
     try {
-        let allAuthor = await Author.find()
+        const query = {}
+        if(q!==null){
+            query.name = new RegExp(q.trim(), "i");
+        }
+        let allAuthor = await Author.find(query)
         if(!allAuthor){
             return ({
                 errCode: 1,
@@ -63,6 +77,6 @@ let getAllAuthor = async () => {
 module.exports = {
     addAuthor: addAuthor,
     editAuthor: editAuthor,
-    deteleAuthor: deleteAuthor,
-    getAllAuthor: getAllAuthor
+    deleteAuthor: deleteAuthor,
+    getAllAuthor: getAllAuthor,
 }
