@@ -28,6 +28,12 @@ let initWebRoutes = (app) => {
     router.post('/api/addAuthor', authorController.handleAddAuthor)
     router.put('/api/editAuthor', authorController.handleEditAuthor)
 
+    router.get('/api/allAuthor', authorController.handleGetAllAuthor)
+    router.get('/api/allType', authorController.handleGetAllAuthor)
+    
+
+    router.post('/api/addBook', bookController.handleAddBook)
+
 
 
 
