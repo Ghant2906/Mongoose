@@ -2,7 +2,7 @@ import express from "express"
 import authController from "../controllers/authController"
 import homeController from "../controllers/homeController"
 import bookController from "../controllers/bookController"
-
+import authorController from "../controllers/authorController"
 
 import authMiddleware from "../middleware/authMiddleware"
 
@@ -25,6 +25,8 @@ let initWebRoutes = (app) => {
     router.delete('/api/logout', authController.handleLogout)
     router.put('/api/blockBook', bookController.blockBook)
     router.put('/api/activeBook', bookController.activeBook)
+    router.post('/api/addAuthor', authorController.handleAddAuthor)
+    router.put('/api/editAuthor', authorController.handleEditAuthor)
 
 
 
