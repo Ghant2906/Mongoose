@@ -16,7 +16,22 @@ let handleEditAuthor = async (req, res) => {
     })
 }
 
+let handleGetAllAuthor = async (req, res) => {
+    let data = await authorService.getAllAuthor()
+    if (data.errCode != 0) {
+        return res.status(200).json({
+            errCode: data.errCode,
+            errMsg: data.errMsg
+        })
+    }
+    res.status(200).json({
+        errCode: data.errCode,
+        allAuthor: data.allAuthor
+    })
+}
+
 module.exports = {
     handleAddAuthor: handleAddAuthor,
-    handleEditAuthor: handleEditAuthor
+    handleEditAuthor: handleEditAuthor,
+    handleGetAllAuthor: handleGetAllAuthor
 }

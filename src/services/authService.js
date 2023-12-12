@@ -26,5 +26,5 @@ let handleLogin = (userName, password) => {
 }
 
 module.exports = {
-    handleLogin: handleLogin
+    handleLogin: handleLogin,
 }
