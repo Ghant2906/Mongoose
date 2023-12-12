@@ -30,7 +30,6 @@ const getAllBooks = async (status, q) => {
 
 const blockBook = async (idBook)=>{
   try{
-  
     const book = await Book.updateOne({_id:idBook},{
       status:false
     });
