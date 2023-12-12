@@ -5,6 +5,7 @@ const authorSchema = new mongoose.Schema({
     name: String,
     dob:Date,
     gender:Boolean,
+    status:{ type: Boolean, default: true },
 });
 const Author = mongoose.model('author', authorSchema);
 

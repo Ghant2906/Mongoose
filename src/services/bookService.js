@@ -43,7 +43,6 @@ const blockBook = async (idBook)=>{
 
 const activeBook = async (idBook)=>{
   try{
-  
     const book = await Book.updateOne({_id:idBook},{
       status:true
     });

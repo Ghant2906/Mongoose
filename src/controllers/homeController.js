@@ -18,13 +18,23 @@ let getHomePage = async (req, res) => {
 
   // Render the EJS template with the 'get' parameter
   return res.render("pages/home.ejs", {
-    title: "home Page",
+    title: "Trang chủ",
     user: user,
     books: books,
-    get: getParam
+    get: getParam,
+  });
+};
+
+let addBookPage = async (req, res) => {
+  let user = userService.getUserCurrent(req.cookies.token);
+
+  return res.render("pages/addBook.ejs", {
+    title: "Thêm sách",
+    user: user
   });
 };
 
 module.exports = {
   getHomePage: getHomePage,
+  addBookPage:addBookPage,
 };
