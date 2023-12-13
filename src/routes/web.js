@@ -19,9 +19,17 @@ let initWebRoutes = (app) => {
 
     
     router.get('/addBook', authMiddleware.checkLogin,bookController.getAddBookPage)
-    router.post('/addBook', bookController.handleAddBook)
+    router.post('/addBook', authMiddleware.checkLogin,bookController.handleAddBook)
 
-    router.get('/tac-gia', authorController.getHomePage)
+    router.get('/tac-gia', authMiddleware.checkLogin,authorController.getHomePage)
+    router.get('/tac-gia/edit',authMiddleware.checkLogin, authorController.getEditPage)
+    router.post('/tac-gia/edit',authMiddleware.checkLogin, authorController.handleEditAuthor)
+
+    router.get('/tac-gia/add',authMiddleware.checkLogin, authorController.getAddPage)
+    router.post('/tac-gia/add',authMiddleware.checkLogin, authorController.handleAddAuthor)
+
+
+
 
 
 

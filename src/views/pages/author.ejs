@@ -46,7 +46,7 @@
               </div>
               <div class="flex-1 d-flex algin-items-center">
                 <a
-                  href="/addAuthor"
+                  href="/tac-gia/add"
                   class="btn btn-success d-flex justify-content-center align-items-center gap-2 ms-auto"
                   style="width: fit-content"
                 >
@@ -87,6 +87,12 @@
                     >
                       <i class="fa-solid fa-trash"></i>
                     </button>
+                    <a
+                      href="/tac-gia/edit?id=<%= author.id %>"
+                      class="btn btn-success btn-success mt-0 mr-2 p-1"
+                    >
+                      <i class="fa-regular fa-eye"></i>
+                    </a>
                   </td>
                 </tr>
                 <% }); %>
@@ -162,7 +168,6 @@
                 icon: "error",
               });
               location.reload();
-
             },
           });
         }
@@ -170,3 +175,45 @@
     });
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const alertParam = urlParams.get('alert');
+
+    if (alertParam) {
+      // Tạo một URL mới mà không chứa tham số alert
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete('alert');
+
+      // Thay đổi URL của trình duyệt mà không tải lại trang
+      window.history.replaceState({}, document.title, newUrl.href);
+    }
+  });
+</script>
+<% if (alert !== null) { %>
+  <% if (alert === 'addSuccess') { %>
+    <script>
+      Swal.fire({
+        title: "Thành công",
+        text: "Thêm thành công",
+        icon: "success"
+      });
+    </script>
+  <% } else if (alert === 'addFailure') { %>
+    <script>
+      Swal.fire({
+        title: "Thất bại",
+        text: "Có lỗi thử lại sau",
+        icon: "error"
+      });
+    </script>
+  <% } else if (alert === 'editSuccess') { %>
+    <script>
+      Swal.fire({
+        title: "Sửa công",
+        text: "Sửa thành công",
+        icon: "success"
+      });
+    </script>
+  <% } %>
+<% } %>

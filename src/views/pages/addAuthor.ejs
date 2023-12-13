@@ -1,0 +1,74 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Sửa tác giả</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <form action="/tac-gia/add" method="POST">
+        <input type="hidden" name="_id" value="">
+        <div class="d-flex flex-column gap-4">
+          
+          <div class="col-12 d-flex align-items-end">
+            <input class="btn btn-success ms-auto" type="submit" value="Lưu" />
+          </div>
+          
+          <div class="col-12 row">
+  
+            <div class="col-6">
+              <div class="form-group">
+                <label for="link" class="form-label fw-bold">Tên tác giả</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="link"
+                  name="name"
+                  placeholder="Nhập tên tác giả"
+                  value=""
+                  autocomplete="off"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="link" class="form-label fw-bold">Ngày sinh</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="link"
+                  name="dob"
+                  value=""
+                  autocomplete="off"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12">
+            <div class="form-group">
+              <label for="status" class="form-label fw-bold"
+                >Giới tính <span class="text-danger">*</span></label
+              >
+              <select class="form-select" id="status" name="gender" required>
+                <option value="1" >Nam</option>
+                <option value="0">Nữ</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+  <!-- block-book-btn -->
+  

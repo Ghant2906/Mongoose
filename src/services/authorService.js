@@ -1,40 +1,34 @@
 import Author from "../models/author"
 
 let addAuthor = (dataAuthor) => {
-    return new Promise( async(resolve, reject) => {
-        try {
-            let newAuthor = await Author.create({
-                name: dataAuthor.name,
-                dob: dataAuthor.dob,
-                gender: dataAuthor.gender
-            }) 
-            resolve({
-                errCode: 0,
-                newAuthor: newAuthor
-            })
-        } catch (error) {
-            reject(error)
-        }
-    })
+    try {
+        const author = Author.create({
+          name: dataAuthor.name,
+          dob : new Date(dataAuthor.dob),
+          gender : dataAuthor.gender
+        });
+        return author;
+      } catch (error) {
+        return false;
+      }
 }
 
 
-let editAuthor = (dataAuthor) => {
-    return new Promise( async(resolve, reject) => {
-        try {
-            let newAuthor = await Author.findOneAndUpdate({
-                name: dataAuthor.name,
-                dob: dataAuthor.dob,
-                gender: dataAuthor.gender
-            }) 
-            resolve({
-                errCode: 0,
-                newAuthor: newAuthor
-            })
-        } catch (error) {
-            reject(error)
-        }
-    })
+let editAuthor = async (dataAuthor) => {
+    try{
+        const filter = { _id: dataAuthor._id };
+        const update = {
+          name: dataAuthor.name,
+          dob: new Date(dataAuthor.dob),
+          gender: dataAuthor.gender
+        };
+        const author = await Author.findOneAndUpdate(filter, update, {
+          new: true
+        });
+        return author;
+      }catch(error){
+        return false;
+      }
 }
 
 let deleteAuthor = async (idAuthor) => {
@@ -74,9 +68,22 @@ let getAllAuthor = async (q=null) => {
     
 }
 
+let getAuthor = async (id) => {
+    try{
+        const author = await Author.findById(id).exec();
+        if(author){
+            return author;
+        }
+        return false;
+    }catch(error) {
+        return false;
+    }
+}
+
 module.exports = {
     addAuthor: addAuthor,
     editAuthor: editAuthor,
     deleteAuthor: deleteAuthor,
     getAllAuthor: getAllAuthor,
+    getAuthor:getAuthor
 }

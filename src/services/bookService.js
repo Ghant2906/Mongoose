@@ -79,7 +79,7 @@ const addBook = async (dataBook) => {
 
 const editBook = async (dataBook) => {
   try{
-    console.log(dataBook)
+
     const filter = { _id: dataBook._id };
     const update = {
       name: dataBook.name.trim(),
