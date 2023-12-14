@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 let handleLogin = (userName, password) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await User.findOne({ 'userName': userName, 'password': password},
+            const user = await User.findOne({ 'userName': { $regex: new RegExp(userName, 'i') }, 'password': password},
             { 'password': 0 });
             if(!user){
                 resolve({
