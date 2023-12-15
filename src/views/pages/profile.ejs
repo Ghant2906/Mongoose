@@ -1,0 +1,159 @@
+<div class="content">
+    <div class="content-header row mb-5">
+        <div class="col-6 d-flex">
+            <h1 class="fw-bold" style="font-size: 1.8rem;">Profile</h1>
+        </div>
+        <div class="col-6 d-flex align-items-end justify-content-end">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="http://localhost/phone_store/admin">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <form>
+        <div class="row">
+            <input type="hidden" name="_token" value="EZIUVPU5HdSmDHCVqfIoav7SBMMT3lWZJQSX7Mx2" autocomplete="off">
+            <input type="hidden" name="_method" value="PUT"> <input type="hidden" name="id" value="1">
+
+
+            <div class="col-12">
+                <input class="btn btn-success ms-auto" type="submit" value="Lưu thay đổi" id="save_btn">
+            </div>
+
+            <div class="col-12 col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="full_name" class="form-label fw-bold">Họ và tên <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control " id="full_name" name="full_name"
+                        placeholder="Nhập họ và tên" value="<%= user.fullName %>" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="phone_number" class="form-label fw-bold">Số điện thoại <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control " id="phone_number" name="phone_number"
+                        placeholder="Nhập số điện thoại" value="<%= user.phoneNumber %>" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="username" class="form-label fw-bold">Username</label>
+                    <input type="text" class="form-control" id="user_name" value="<%= user.userName %>" id="user_name"
+                        disabled="">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr class="my-5">
+
+    <form>
+        <div class="row mb-5">
+            <input type="hidden" name="_token" value="EZIUVPU5HdSmDHCVqfIoav7SBMMT3lWZJQSX7Mx2" autocomplete="off">
+            <h1 class="fw-bold" style="font-size: 1.8rem;">Thiết lập mật khẩu mới</h1>
+
+
+
+            <div class="col-12">
+                <input class="btn btn-success ms-auto" type="submit" value="Lưu thay đổi" id="change_pass_btn">
+            </div>
+
+            <div class="col-12 col-md-4 mt-4">
+                <div class="form-group">
+                    <label for="password_old" class="form-label fw-bold">Mật khẩu cũ <span
+                            class="text-danger">*</span></label>
+                    <input type="password" class="form-control " id="password_old" name="password_old"
+                        placeholder="Nhập mật khẩu cũ" value="" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 mt-4">
+                <div class="form-group">
+                    <label for="password_new" class="form-label fw-bold">Mật khẩu mới <span
+                            class="text-danger">*</span></label>
+                    <input type="password" class="form-control " id="password_new" name="password_new"
+                        placeholder="Nhập mật khẩu mới" value="" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 mt-4">
+                <div class="form-group">
+                    <label for="password_new_confirm" class="form-label fw-bold">Xác nhận mật khẩu mới <span
+                            class="text-danger">*</span></label>
+                    <input type="password" class="form-control " id="password_new_confirm" name="password_new_confirm"
+                        placeholder="Nhập mật khẩu xác nhận mới" value="" autocomplete="off">
+                </div>
+            </div>
+            <div>
+                <p id="msgErr" style="color: red"></p>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(() => {
+            "use strict";
+
+            $('#save_btn').click((e) => {
+                e.preventDefault();
+                let fullName = $('#full_name').val()
+                let phoneNumber = $('#phone_number').val()
+                let userName = $('#user_name').val()
+                $.ajax({
+                    url: '/api/profile',
+                    type: "PUT",
+                    data: {
+                        fullName: fullName,
+                        phoneNumber: phoneNumber,
+                        userName: userName
+                    },
+                    success: (result) => {
+                        if (result.user) {
+                            alert("Thay đổi thông tin thành công")
+                            location.href = '/'
+                        }
+                    }
+                })
+            })
+
+            $('#change_pass_btn').click((e) => {
+                e.preventDefault();
+                let userName = $('#user_name').val()
+                let oldPassword = $('#password_old').val()
+                let newPassword = $('#password_new').val()
+                let confirmPassword = $('#password_new_confirm').val()
+                if (!oldPassword || !newPassword || !confirmPassword) {
+                    $('#msgErr').html('Mật khẩu không được để trống!')
+                } else if (newPassword != confirmPassword) {
+                    $('#msgErr').html('Mật khẩu mới không trùng khớp!')
+                } else {
+                    $('#msgErr').html('')
+                    $.ajax({
+                        url: '/api/changePass',
+                        type: "PUT",
+                        data: {
+                            oldPassword: oldPassword,
+                            newPassword: newPassword,
+                            userName: userName
+                        },
+                        success: (result) => {
+                            console.log(result);
+                            if (result.errCode != 0) {
+                                $('#msgErr').html(result.errMsg)
+                            } else {
+                                $('#msgErr').html('')
+                                alert('Thay đổi mật khẩu thành công!')  
+                                location.reload()
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</div>

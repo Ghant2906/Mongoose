@@ -15,9 +15,7 @@ let initWebRoutes = (app) => {
 
     router.get('/', authMiddleware.checkLogin,homeController.getHomePage)
     router.get('/editBook', authMiddleware.checkLogin,bookController.getBookDetailPage)
-    router.post('/editBook', authMiddleware.checkLogin,bookController.handleEditBook)
-
-    
+    router.post('/editBook', authMiddleware.checkLogin,bookController.handleEditBook)    
     router.get('/addBook', authMiddleware.checkLogin,bookController.getAddBookPage)
     router.post('/addBook', authMiddleware.checkLogin,bookController.handleAddBook)
 
@@ -28,13 +26,7 @@ let initWebRoutes = (app) => {
     router.get('/tac-gia/add',authMiddleware.checkLogin, authorController.getAddPage)
     router.post('/tac-gia/add',authMiddleware.checkLogin, authorController.handleAddAuthor)
 
-
-
-
-
-
-
-
+    router.get('/profile',authMiddleware.checkLogin, homeController.getProfilePage)
 
     router.get('/login', (req, res, next) => {
         if (req.cookies.token) {
@@ -56,7 +48,10 @@ let initWebRoutes = (app) => {
     router.post('/api/addType', typeController.handleAddType)
     router.delete('/api/deleteAuthor', authorController.deleteType)
 
+    router.put('/api/profile',authMiddleware.checkLogin, authController.handleUpdateProfile)
+    router.put('/api/changePass',authMiddleware.checkLogin, authController.handleChangePassword)
 
+    router.get('/allUser', authController.allUser)
     
     return app.use("/", router)
 }

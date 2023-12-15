@@ -11,7 +11,7 @@ import { response } from "express";
 let getHomePage = async (req, res) => {
 
   const alert = req.query.alert || null;
-  
+
 
   let user = userService.getUserCurrent(req.cookies.token);
   if (user === false) {
@@ -33,15 +33,23 @@ let getHomePage = async (req, res) => {
     user: user,
     books: books,
     get: getParam,
-    dataTb : renderItemTbHome(books),
-    alert:alert
+    dataTb: renderItemTbHome(books),
+    alert: alert
   });
 };
 
+let getProfilePage = (req, res) => {
+  let user = userService.getUserCurrent(req.cookies.token);
+  res.render('pages/profile.ejs', {
+    title: "Profile",
+    user: user, 
+  })
+}
 
 
 
 
 module.exports = {
   getHomePage: getHomePage,
+  getProfilePage: getProfilePage
 };
