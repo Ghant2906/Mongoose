@@ -2,9 +2,10 @@ const { trusted } = require("mongoose");
 const Book = require("../models/book");
 const jwt = require("jsonwebtoken");
 
-const getAllBooks = async (status, q) => {
+const getAllBooks = async (status, q, order) => {
   try {
     const query = {};
+    const orderQuery = {};
 
     if (status !== null) {
       query.status = status;
@@ -13,12 +14,33 @@ const getAllBooks = async (status, q) => {
     if (q !== null) {
       query.name = new RegExp(q.trim(), "i");
     }
+
+    if (order !== null) {
+      switch (order) {
+        case 'price':
+          orderQuery.price = 1;
+          break;
+        case 'price_desc':
+          orderQuery.price = -1;
+          break;
+        case 'quantity':
+        orderQuery.quantity = 1;
+        break;
+        case 'quantity_desc':
+          orderQuery.quantity = -1;
+          break;
+        default:
+          orderQuery ={};
+      }
+    }
+
     // Nếu status không phải là null, thêm điều kiện truy vấn cho status
 
     const books = await Book.find(query)
       .populate("idAuthor")
       .populate("idType")
       .find({ idAuthor: { $ne: null } })
+      .sort(orderQuery)
       .exec();
 
     return books;
@@ -78,8 +100,7 @@ const addBook = async (dataBook) => {
 };
 
 const editBook = async (dataBook) => {
-  try{
-
+  try {
     const filter = { _id: dataBook._id };
     const update = {
       name: dataBook.name.trim(),
@@ -93,13 +114,12 @@ const editBook = async (dataBook) => {
       status: dataBook.status,
     };
     const book = await Book.findOneAndUpdate(filter, update, {
-      new: true
+      new: true,
     });
     return book;
-  }catch(error){
+  } catch (error) {
     return false;
   }
-
 };
 
 const getBook = async (idBook) => {
@@ -117,5 +137,5 @@ module.exports = {
   activeBook: activeBook,
   addBook: addBook,
   getBook: getBook,
-  editBook:editBook
+  editBook: editBook,
 };

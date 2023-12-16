@@ -63,7 +63,7 @@ const createBooks = async () => {
                 idAuthor: authorId,
                 idType: typeId,
                 publicationDate: new Date(),
-                price: `${i * 5}.00`,
+                price: (i * 5),
             };
 
             books.push(bookData);

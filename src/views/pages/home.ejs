@@ -36,6 +36,17 @@
                 <option value="1" <% if (get.status === "1") { %>selected<% } %>>Hoạt động</option>
               </select>
             </div>
+
+            <div class="col-12 col-md-auto">
+              <select name="order_by" class="form-select">
+                <option value="" <% if (!get.order_by || get.order_by === "") { %>selected<% } %> >Xếp theo</option>
+                <option value="price" <% if (get.order_by === "price") { %>selected<% } %> >Giá tăng dần</option>
+                <option value="price_desc" <% if (get.order_by === "price_desc") { %>selected<% } %> >Giá giảm dần</option>
+                <option value="quantity" <% if (get.order_by === "quantity") { %>selected<% } %> >Số lượng tăng dần</option>
+                <option value="quantity_desc" <% if (get.order_by === "quantity_desc") { %>selected<% } %> >Số lượng giảm dần</option>
+              </select>
+            </div>
+
             <div class="col-md-auto">
               <button type="submit" class="btn btn-primary gap-2">
                 <i class="fa-solid fa-magnifying-glass"></i>

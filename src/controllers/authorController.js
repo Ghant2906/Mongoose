@@ -64,7 +64,6 @@ let getEditPage = async (req, res) => {
 
 let deleteType = async (req, res) => {
   const idAuthor = req.body.id;
-  console.log(idAuthor);
   const checkDeleteAuthor = await authorService.deleteAuthor(idAuthor);
   if (checkDeleteAuthor !== false) {
     return res.status(200).json({

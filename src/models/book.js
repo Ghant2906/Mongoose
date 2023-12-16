@@ -14,7 +14,7 @@ const bookSchema = new mongoose.Schema({
         ref:'type'
     },
     publicationDate:Date,
-    price: String,
+    price: Number,
     status: { type: Boolean, default: true }
 });
 

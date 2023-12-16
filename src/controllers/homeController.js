@@ -19,9 +19,10 @@ let getHomePage = async (req, res) => {
   // Lấy giá trị của tham số 'get' từ URL
   const status = req.query.status || null;
   const q = req.query.q || null;
-  // console.log(status,q)
+  const order = req.query.order_by || null;
+  
 
-  let books = await bookService.getAllBooks(status, q);
+  let books = await bookService.getAllBooks(status, q, order);
 
   if (books === false) {
   }

@@ -11,7 +11,6 @@ import { response } from "express";
 let blockBook = async (req, res) => {
   const idBook = req.body.id;
   let books = await bookService.blockBook(idBook);
-  console.log(books);
   if (books) {
     return res.status(200).json({
       books: renderItemTbHome(books),
@@ -47,7 +46,6 @@ let handleAddBook = async (req, res) => {
 let handleEditBook =async (req, res) => {
   let dataBook = req.body;
   const addBook = await bookService.editBook(dataBook);
-  console.log(addBook);
   if (addBook) {
     res.redirect("/?alert=editSuccess");
   } else {

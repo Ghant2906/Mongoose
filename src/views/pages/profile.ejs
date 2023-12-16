@@ -114,8 +114,14 @@
                     },
                     success: (result) => {
                         if (result.user) {
-                            alert("Thay đổi thông tin thành công")
-                            location.href = '/'
+                            Swal.fire({
+                            title: "Thành công",
+                            text: "Thay đổi thông tin thành công",
+                            icon: "success",
+                            }).then(() => {
+                                location.href = '/'
+                            });
+                            // alert("Thay đổi thông tin thành công")
                         }
                     }
                 })
@@ -147,8 +153,14 @@
                                 $('#msgErr').html(result.errMsg)
                             } else {
                                 $('#msgErr').html('')
-                                alert('Thay đổi mật khẩu thành công!')  
-                                location.reload()
+                                Swal.fire({
+                                    title: "Thành công",
+                                    text: "Thay đổi mật khẩu thành công!",
+                                    icon: "success"
+                                }).then(()=>{
+
+                                    location.reload()
+                                });
                             }
                         }
                     })
