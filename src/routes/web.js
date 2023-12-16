@@ -30,12 +30,6 @@ let initWebRoutes = (app) => {
 
 
 
-
-
-
-
-
-
     router.get('/login', (req, res, next) => {
         if (req.cookies.token) {
             res.redirect('/')
