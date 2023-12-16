@@ -2,7 +2,7 @@ const { trusted } = require("mongoose");
 const Book = require("../models/book");
 const jwt = require("jsonwebtoken");
 
-const getAllBooks = async (status, q, order) => {
+const getAllBooks = async (status, q, order=null) => {
   try {
     const query = {};
     const orderQuery = {};
@@ -57,7 +57,7 @@ const blockBook = async (idBook) => {
         status: false,
       }
     );
-    const books = await getAllBooks(null, null);
+    const books = await getAllBooks(null, null, null);
     return books;
   } catch (error) {
     return false;
@@ -72,8 +72,8 @@ const activeBook = async (idBook) => {
         status: true,
       }
     );
-    const books = await getAllBooks(null, null);
-
+    const books = await getAllBooks(null, null, null);
+      console.log(books);
     return books;
   } catch (error) {
     return false;

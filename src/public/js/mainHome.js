@@ -64,6 +64,7 @@ function activeBook(bookId) {
             });
           },
           error: (error) => {
+            console.log(error);
             Swal.fire({
               title: "Lỗi?",
               text: "Có lỗi thử lại sau",
